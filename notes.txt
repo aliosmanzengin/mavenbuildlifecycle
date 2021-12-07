@@ -1,0 +1,37 @@
+
+	
+	
+	Maven Build Life Cycle
+				
+				Build Life Cycle
+---------------------------------------------------------------------------
+ 				Validate
+ 				Compile
+ 				Test
+ 				Package
+ 				Integration Tests
+ 				Verify
+ 				Install - install in local repo
+ 				Deploy  - install in remote rep's to use by other projects
+ 				
+ 				Whichever you choose from above, firstly, previous phases will executed by the Maven automatically.
+ 				For example if you execute Install, all previous phases will be executed.
+ 				
+ 	*To run the project, 
+ 	right click to the pom.xml/
+ 							maven/
+ 							Run As/...
+								 test --> executes all test cases
+								 build
+								 install(install will package your project. it will create jar file of your project which contains the source code. that jar file will be available in the target folder.)
+								 clean (there is internally default maven-clean-plugin. it will clean unnecessary files. You can also clean by selecting the "build" and typing clean in the Goal.)
+								 generate sources
+								 
+								 
+							when typing goals, you can also type two goals. go to the maven build, type "clean test", "clean install"(first it will clean the project by deleting unnecessary files like target folder etc. then executes the install) 	 
+								 
+		maven-resources-plugin(checks the resources if they are correct or not. also works on execution ?? )
+		maven-compiler-plugin (executor)
+		maven-surefire-plugin(executor)
+		maven-clean-plugin
+										 			
