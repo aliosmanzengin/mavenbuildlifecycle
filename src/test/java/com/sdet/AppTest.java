@@ -1,7 +1,7 @@
 package com.sdet;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.*;
+import org.testng.annotations.*;
 
 public class AppTest {
 

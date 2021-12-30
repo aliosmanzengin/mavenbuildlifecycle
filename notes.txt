@@ -1,6 +1,13 @@
 
 	
 	
+	
+	
+	Maven Project will provide you some default sturcture: src/main/java, src/main/resources, src/test/java, src/test/resources
+	developers uses the main, testers and devs(for unit test) use the test folder.
+	
+	* * *
+	
 	Maven Build Life Cycle
 				
 				Build Life Cycle
@@ -28,10 +35,85 @@
 								 generate sources
 								 
 								 
-							when typing goals, you can also type two goals. go to the maven build, type "clean test", "clean install"(first it will clean the project by deleting unnecessary files like target folder etc. then executes the install) 	 
+							when typing goals, you can also type two goals. go to the maven build, type "clean test",or "clean install"(first it will clean the project by deleting unnecessary files like target folder etc. then executes the install) 	 
 								 
 		maven-resources-plugin(checks the resources if they are correct or not. also works on execution ?? )
 		maven-compiler-plugin (executor)
 		maven-surefire-plugin(executor)
 		maven-clean-plugin
+		
+		* * *
+		
+	How to integrate Selenium with Maven project in Eclipse?
+	How to run Selenium tests in Eclipse using Maven?
+	Maven surefire plugin
+	
+	How to generate Maven Report?	
+	
+	If you want to execute all the tests in a specific package; right clik to the package(it will be com.sdet in this case),
+										  Go to TestNG/
+										  		Convert to TestNG(will give you a testng.xml file to run test cases)
+	Inside the pom.xml, you need to add testng.xml into the surefire plugin/confihuration/suiteXmlFiles	
+		<plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.0.0-M5</version>
+          <configuration>
+             <suiteXmlFiles>
+                 <suiteXmlFile>testng.xml</suiteXmlFile>
+             </suiteXmlFiles>
+          </configuration>
+        </plugin>
+										  							 
+	This will give you an xml file under the project.	
+	To run, open the xml file and right clik to run as TestNG Suite	
+	-When you run your test cases with TestnNG xml file, maven reports will not be generated because you have to run tests with maven to get maven reports. TestNG creates reports inside the "test-output" folder.(test-output/index.html --> open with system editor)
+	-When you run from maven, if it not run all test cases, you need to add surefire plugin	
+	-We will add some plugins for running the testng.xml from maven pom.xml
+	
+	 			  <build>
+				    <pluginManagement>
+				      <plugins>
+				        <plugin>
+				          <groupId>org.apache.maven.plugins</groupId>
+				          <artifactId>maven-surefire-plugin</artifactId> --->surefire will execute testng(execution means that compile and generate reports)
+				          <version>3.0.0-M5</version>
+				          <configuration> ---------------------------------->we added configuration for testng.xml
+				             <suiteXmlFiles>
+				                 <suiteXmlFile>TestNG.xml</suiteXmlFile>
+				             </suiteXmlFiles>
+				          </configuration>
+				        </plugin>
+				      </plugins>
+				    </pluginManagement>
+				  </build>
+		
+	* * *
+	How to install & setup Maven on Windows
+	How to run Maven Project from command line
+	Maven commands...
+	
+	By now, we have created selenium tests and executed through the pom.xml in eclipse ide. it is easier to run in eclipse because the IDE has a build in plugin for maven. 	
+	Now we will run the project outside of Eclipse through command prompt with same maven commands(build, clean, install, test...)
+		***You need to have maven and jdk is installed and added into environment variables and path.
+		
+		
+   to run from command prompt, copy the project path "C:\Users\alios\eclipse-workspace\myproject"
+   change directory to path, 
+   cls(to clean command panel)
+   dir(list of the files)
+   
+   mvn validate	---> will validate if the project is correct and all necessary information is available or not.
+   mvn clean	---> remove the files which created from the previous build
+   mvn compile	---> compiles the source codes(src folder) of the project. ( maven-resources-plugin:2.6:resources and  maven-compiler-plugin:3.1:compile runs. they are default maven plugins )
+   mvn test		---> compiles the test codes(test folder). it will compile according to testng.xml file (same plugins from the mvn compile are used and also maven-compiler-plugin:3.1:testCompile, maven-resources-plugin:2.6:testResources, and maven-surefire-plugin:3.0.0-M5:test are invoked. as you know, surefire is for testng.xml file )		
+   mvn package 	---> it will do all steps; mvn package command will validate, clean, compile, and test the project and creates a jar file inside your project(target folder).( maven-jar-plugin:2.4:jar)
+   mvn install 	---> install does what mvn package commend does. but the package command creates the jar file inside of the preject directory. so what mvn install does is that it will get the package from the project path and deploy the jar into your local maven repository( C:\Users\alios\eclipse-workspace\myproject\target\myproject-0.0.1-SNAPSHOT.jar to C:\Users\alios\.m2\repository\com\aliosman\myproject\0.0.1-SNAPSHOT\myproject-0.0.1-SNAPSHOT.jar and pom.xml to local maven repo) 		
+   mvn deploy 	---> if you want to deploy your jar file into remote applications like jenkins, tomcat etc. you will use deploy command. deploy command does everythin wat above commands does(packaging, installing and also deployiing)		
+	This is the maven build lifecycle, Everything is done by the maven.	
+		
+		
+		
+		
+		
 										 			
